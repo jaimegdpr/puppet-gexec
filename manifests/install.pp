@@ -19,8 +19,11 @@ class gexec::install {
                            'daemonize-1.7.3-1.el6.x86_64.rpm',
                            'gexec-0.3.4-1.noarch.rpm']
 
+    # Iterate over a list of rpm to download and install it
     $gexec_dependencies.each | String $gexec_dependency | {
-
+        
+        # It removes all the characters after the first dash.
+        # We get the package name, needed to chech if it is installed
         $package_name = regsubst($gexec_dependency,'^(\w+).*.rpm$', '\1')
 
         file {"/root/packages/${gexec_dependency}":
