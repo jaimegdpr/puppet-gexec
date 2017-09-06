@@ -1,7 +1,11 @@
 class gexec {
 
-    class {'gexec::install':}
-    class {'gexec::config':}
-    class {'gexec::service':}
+    include gexec::install
+    include gexec::config
+    include gexec::service
+
+    Class['gexec::install'] ->
+    Class['gexec::config'] ->
+    Class['gexec::service']
 
 }
