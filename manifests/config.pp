@@ -1,8 +1,5 @@
 class gexec::config {
 
-    # Do the config after the installation process
-    require gexec::install
-
     file {'/root/gang_exec':
         ensure => directory,
         mode => '0755',

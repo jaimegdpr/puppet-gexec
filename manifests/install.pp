@@ -6,18 +6,23 @@ class gexec::install {
 
         package { ['xinetd',
                    'glibc.i686',
+                   'daemonize',
                    'nss-softokn-freebl.i686']:
             ensure => installed,
             provider => yum,
             install_options => ['--enablerepo=Cent*'],
-            before => Package[ ['openssl096b'], ['daemonize'] ],
+            before => Package[ ['openssl096b'] ],
         }
 
-    }
+        $gexec_dependencies = ['openssl096b-0.9.6b-22.46.i386.rpm',
+                               'gexec-0.3.4-1.noarch.rpm']
 
-    $gexec_dependencies = ['openssl096b-0.9.6b-22.46.i386.rpm',
-                           'daemonize-1.7.3-1.el6.x86_64.rpm',
-                           'gexec-0.3.4-1.noarch.rpm']
+    } else {
+
+        $gexec_dependencies = ['openssl096b-0.9.6b-22.46.i386.rpm',
+                               'daemonize-1.7.3-1.el6.x86_64.rpm',
+                               'gexec-0.3.4-1.noarch.rpm']
+    }
 
     # Iterate over a list of rpm to download and install it
     $gexec_dependencies.each | String $gexec_dependency | {
